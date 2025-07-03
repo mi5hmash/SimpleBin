@@ -134,9 +134,6 @@ namespace SimpleBin
                     _isDarkTheme = currentTheme;
                     ThemeChanged?.Invoke(currentTheme);
 
-#pragma warning disable WFO5001
-                    Application.SetColorMode(SystemColorMode.System);
-#pragma warning restore WFO5001
                     this.Refresh();
                 }
             }
