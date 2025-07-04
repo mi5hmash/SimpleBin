@@ -2,7 +2,10 @@
 
 	<PropertyGroup>
 		<!--DPIScalingFix-->
-		<ApplicationHighDpiMode>DpiUnawareGdiScaled</ApplicationHighDpiMode>
+		<!--<ApplicationHighDpiMode>DpiUnawareGdiScaled</ApplicationHighDpiMode>-->
+		<!--There are problems with text resolution in my PC-->
+		
+		
 		<!--Main-->
 		<OutputType>WinExe</OutputType>
 		<Nullable>enable</Nullable>

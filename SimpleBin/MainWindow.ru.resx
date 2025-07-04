@@ -377,4 +377,7 @@
   <data name="TrayIcon.Text" xml:space="preserve">
     <value>SimpleBin</value>
   </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
 </root>

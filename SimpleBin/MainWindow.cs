@@ -18,7 +18,7 @@ namespace SimpleBin
             var sysLang = CultureInfo.CurrentUICulture.Name;
             var appLang = "en-001";
             if (sysLang.Contains("ru")) appLang = "ru-Ru";
-            if (sysLang.Contains("pl")) appLang = "pl-Pl"; // added Polish language
+            if (sysLang.Contains("pl")) appLang = "pl-Pl"; 
 
             var culture = new CultureInfo(appLang);
             Thread.CurrentThread.CurrentCulture = culture;
@@ -126,7 +126,6 @@ namespace SimpleBin
         protected override void WndProc(ref Message m)
         {
             const int WM_SETTINGCHANGE = 0x001A;
-            Debug.WriteLine(m.Msg);
             if (m.Msg == WM_SETTINGCHANGE && m.LParam != IntPtr.Zero)
             {
                 bool currentTheme = IsDarkThemeEnabled();
@@ -149,7 +148,11 @@ namespace SimpleBin
 
             using var key = Registry.CurrentUser.OpenSubKey(keyPath);
 
-            return (int)key?.GetValue(valueName) == 0;
+            var keyValue = key?.GetValue(valueName);
+
+            if (keyValue is null) return true; //If application can't open registry dark it will be use dark icons
+
+            return (int)keyValue == 0;
         }
 
         private void AddToStartupBtn_Click(object sender, EventArgs e)
