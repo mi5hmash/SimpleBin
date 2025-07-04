@@ -18,6 +18,7 @@ namespace SimpleBin
             var sysLang = CultureInfo.CurrentUICulture.Name;
             var appLang = "en-001";
             if (sysLang.Contains("ru")) appLang = "ru-Ru";
+            if (sysLang.Contains("pl")) appLang = "pl-Pl"; // added Polish language
 
             var culture = new CultureInfo(appLang);
             Thread.CurrentThread.CurrentCulture = culture;
@@ -88,6 +89,7 @@ namespace SimpleBin
         {
             this.Show();
             this.WindowState = FormWindowState.Normal;
+            this.Activate(); // brings the window to the front if it's already open
             this.ShowInTaskbar = true;
         }
 
