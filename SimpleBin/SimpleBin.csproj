@@ -1,12 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
+		<!--DPIScalingFix-->
+		<ApplicationHighDpiMode>DpiUnawareGdiScaled</ApplicationHighDpiMode>
+		<!--Main-->
 		<OutputType>WinExe</OutputType>
 		<Nullable>enable</Nullable>
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<TargetFramework>net9.0-windows10.0.19041.0</TargetFramework>
 		<ApplicationIcon>App.ico</ApplicationIcon>
+		<AssemblyVersion>0.7.0.2</AssemblyVersion>
+		<FileVersion>$(AssemblyVersion)</FileVersion>
+		<Version>$(AssemblyVersion)</Version>
+		<Authors>exalaolir</Authors>
+		<Company>$(Authors)</Company>
+		<Copyright>$(Authors) © $([System.DateTime]::UtcNow.Year)</Copyright>
+		<PackageProjectUrl>https://github.com/exalaolir/SimpleBin</PackageProjectUrl>
+		<Description>This is a small program that adds a system recycle bin shortcut to the tray.</Description>
 	</PropertyGroup>
 
 	<ItemGroup>
