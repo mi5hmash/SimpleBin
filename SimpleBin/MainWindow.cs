@@ -41,7 +41,6 @@ namespace SimpleBin
                 RemoveFromStartupBtn.Enabled = false;
             }
 
-            HideForm();
             _binHelper = binHelper;
             UpdateControls();
 
@@ -51,6 +50,8 @@ namespace SimpleBin
                     BeginInvoke(UpdateControls);
                 else UpdateControls();
             };
+
+            this.Load += (s, e) => HideForm();
         }
 
         private void Form1_ThemeChanged(bool isDarkTheme)
