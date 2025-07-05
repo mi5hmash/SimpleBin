@@ -87,7 +87,7 @@ public class BinHelper : IDisposable
         string? pszRootPath,
         RecycleBinFlags dwFlags);
 
-    internal bool ClearBin()
+    internal static bool ClearBin()
     {
         const int okCode = 0;
         var parentWindow = IntPtr.Zero;
