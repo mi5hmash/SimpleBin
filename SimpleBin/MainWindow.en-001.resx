@@ -137,7 +137,7 @@
     <value>149, 32</value>
   </data>
   <data name="ClearToolStripItem.Text" xml:space="preserve">
-    <value>Clear</value>
+    <value>Empty</value>
   </data>
   <data name="SettingsToolStripItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>149, 32</value>
@@ -421,5 +421,8 @@
   </data>
   <data name="groupBox1.Text" xml:space="preserve">
     <value>Program settings</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Settings</value>
   </data>
 </root>
