@@ -1,12 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
+		<!--DPIScalingFix-->
+		<!--<ApplicationHighDpiMode>DpiUnawareGdiScaled</ApplicationHighDpiMode>-->
+		<!--There are problems with text resolution in my PC-->
+		
+		<!--Main-->
 		<OutputType>WinExe</OutputType>
 		<Nullable>enable</Nullable>
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<TargetFramework>net9.0-windows10.0.19041.0</TargetFramework>
 		<ApplicationIcon>App.ico</ApplicationIcon>
+		<AssemblyVersion>1.0.0</AssemblyVersion>
+		<FileVersion>$(AssemblyVersion)</FileVersion>
+		<Version>$(AssemblyVersion)</Version>
+		<Authors>exalaolir</Authors>
+		<Company>$(Authors)</Company>
+		<Copyright>$(Authors) © $([System.DateTime]::UtcNow.Year)</Copyright>
+		<PackageProjectUrl>https://github.com/exalaolir/SimpleBin</PackageProjectUrl>
+		<Description>This is a small program that adds a system recycle bin shortcut to the tray.</Description>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -15,6 +29,22 @@
 
 	<ItemGroup>
 	  <Content Include="App.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Roslynator.Analyzers" Version="4.13.1">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	  <PackageReference Include="Roslynator.CodeFixes" Version="4.13.1">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	  <PackageReference Include="Roslynator.Formatting.Analyzers" Version="4.13.1">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	  <PackageReference Include="Velopack" Version="0.0.1298" />
 	</ItemGroup>
 
 	<ItemGroup>

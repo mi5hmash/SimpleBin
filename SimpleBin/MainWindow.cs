@@ -18,6 +18,7 @@ namespace SimpleBin
             var sysLang = CultureInfo.CurrentUICulture.Name;
             var appLang = "en-001";
             if (sysLang.Contains("ru")) appLang = "ru-Ru";
+            if (sysLang.Contains("pl")) appLang = "pl-Pl";
 
             var culture = new CultureInfo(appLang);
             Thread.CurrentThread.CurrentCulture = culture;
@@ -40,7 +41,6 @@ namespace SimpleBin
                 RemoveFromStartupBtn.Enabled = false;
             }
 
-            HideForm();
             _binHelper = binHelper;
             UpdateControls();
 
@@ -50,6 +50,8 @@ namespace SimpleBin
                     BeginInvoke(UpdateControls);
                 else UpdateControls();
             };
+
+            this.Load += (s, e) => HideForm();
         }
 
         private void Form1_ThemeChanged(bool isDarkTheme)
@@ -88,24 +90,25 @@ namespace SimpleBin
         {
             this.Show();
             this.WindowState = FormWindowState.Normal;
+            this.Activate(); // brings the window to the front if it's already open
             this.ShowInTaskbar = true;
         }
 
         private void UpdateControls()
         {
-            var binSize = _binHelper.GetBinSize();
-            SizeToolStripItem.Text = $"{SizeToolStripItem.Text?.Split()[0]} {ConvertSizeToString(binSize.biteSize)}";
-            ElementsToolStripItem.Text = $"{ElementsToolStripItem.Text?.Split()[0]} {binSize.itemCount}";
-            ClearToolStripItem.Enabled = !_binHelper.IsBinEmpty();
+            var (biteSize, itemCount) = BinHelper.GetBinSize();
+            SizeToolStripItem.Text = $"{SizeToolStripItem.Text?.Split()[0]} {ConvertSizeToString(biteSize)}";
+            ElementsToolStripItem.Text = $"{ElementsToolStripItem.Text?.Split()[0]} {itemCount}";
+            ClearToolStripItem.Enabled = !BinHelper.IsBinEmpty();
 
-            TrayIcon.Icon = binSize.itemCount == 0
+            TrayIcon.Icon = itemCount == 0
                 ? _iconHelper.GetEmptyIcon()
                 : _iconHelper.GetIcon();
         }
 
         private void SettingsToolStripItem_Click(object sender, EventArgs e) => ShowForm();
 
-        private void ClearToolStripItem_Click(object sender, EventArgs e) => _binHelper.ClearBin();
+        private void ClearToolStripItem_Click(object sender, EventArgs e) => BinHelper.ClearBin();
 
         private static string ConvertSizeToString(long size) => size switch
         {
@@ -124,7 +127,6 @@ namespace SimpleBin
         protected override void WndProc(ref Message m)
         {
             const int WM_SETTINGCHANGE = 0x001A;
-            Debug.WriteLine(m.Msg);
             if (m.Msg == WM_SETTINGCHANGE && m.LParam != IntPtr.Zero)
             {
                 bool currentTheme = IsDarkThemeEnabled();
@@ -147,7 +149,11 @@ namespace SimpleBin
 
             using var key = Registry.CurrentUser.OpenSubKey(keyPath);
 
-            return (int)key?.GetValue(valueName) == 0;
+            var keyValue = key?.GetValue(valueName);
+
+            if (keyValue is null) return true; //If application can't open registry dark it will be use dark icons
+
+            return (int)keyValue == 0;
         }
 
         private void AddToStartupBtn_Click(object sender, EventArgs e)
