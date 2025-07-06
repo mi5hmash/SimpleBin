@@ -9,7 +9,6 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-
 namespace SimpleBin
 {
     public static class StartupHelper
@@ -24,12 +23,12 @@ namespace SimpleBin
             {
                 RemoveFromStartup();
                 AddToStartup();
-            }    
+            }
         }
 
         public static void AddToStartup()
         {
-            string appPath = Application.ExecutablePath.ToString();
+            string appPath = Application.ExecutablePath;
 
             using RegistryKey? rk = Registry.CurrentUser.OpenSubKey(
                 _registryPath, true);

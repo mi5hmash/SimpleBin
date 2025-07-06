@@ -18,7 +18,7 @@ namespace SimpleBin
             var sysLang = CultureInfo.CurrentUICulture.Name;
             var appLang = "en-001";
             if (sysLang.Contains("ru")) appLang = "ru-Ru";
-            if (sysLang.Contains("pl")) appLang = "pl-Pl"; 
+            if (sysLang.Contains("pl")) appLang = "pl-Pl";
 
             var culture = new CultureInfo(appLang);
             Thread.CurrentThread.CurrentCulture = culture;
@@ -96,19 +96,19 @@ namespace SimpleBin
 
         private void UpdateControls()
         {
-            var binSize = _binHelper.GetBinSize();
-            SizeToolStripItem.Text = $"{SizeToolStripItem.Text?.Split()[0]} {ConvertSizeToString(binSize.biteSize)}";
-            ElementsToolStripItem.Text = $"{ElementsToolStripItem.Text?.Split()[0]} {binSize.itemCount}";
-            ClearToolStripItem.Enabled = !_binHelper.IsBinEmpty();
+            var (biteSize, itemCount) = BinHelper.GetBinSize();
+            SizeToolStripItem.Text = $"{SizeToolStripItem.Text?.Split()[0]} {ConvertSizeToString(biteSize)}";
+            ElementsToolStripItem.Text = $"{ElementsToolStripItem.Text?.Split()[0]} {itemCount}";
+            ClearToolStripItem.Enabled = !BinHelper.IsBinEmpty();
 
-            TrayIcon.Icon = binSize.itemCount == 0
+            TrayIcon.Icon = itemCount == 0
                 ? _iconHelper.GetEmptyIcon()
                 : _iconHelper.GetIcon();
         }
 
         private void SettingsToolStripItem_Click(object sender, EventArgs e) => ShowForm();
 
-        private void ClearToolStripItem_Click(object sender, EventArgs e) => _binHelper.ClearBin();
+        private void ClearToolStripItem_Click(object sender, EventArgs e) => BinHelper.ClearBin();
 
         private static string ConvertSizeToString(long size) => size switch
         {
